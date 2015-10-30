@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>swp: touch test</title>
-    <link rel="stylesheet" href="/lib/yui/cssreset/reset.css" type="text/css">
+    <link rel="stylesheet" href="/lib/yui3/build/cssreset/reset.css" type="text/css">
     <style type="text/css" title="temp">
       ul,li { margin:0; padding:0; list-style:none; }
       .vk-key {width:72px; height:52px;float:left;}
@@ -11,14 +11,13 @@
 
       #vk {position:absolute; right:0px; bottom: 0px;}
 
-      input, textarea {border: 2px solid #999999;}
-      input.active-element, 
-      textarea.active-element {border: 2px solid blue !important;}
+      input, textarea { border: 2px solid #999999; display:block; }
+      .active-textbox { border: 2px solid blue !important; }
     </style>
-    <script type="text/javascript" src="/lib/yui/yui/yui.js"></script>
-    <script type="text/javascript" src="/lib/mootools/mootools.js"></script>
-    <script type="text/javascript" src="/lib/mootools/more.js"></script>
-    <script type="text/javascript" src="/lib/kicku/swp.js"></script>
+    <script type="text/javascript" src="/lib/yui3/build/yui/yui.js"></script>
+    <script type="text/javascript" src="/lib/mootools-1.2.4/mootools.js"></script>
+    <script type="text/javascript" src="/lib/mootools-1.2.4/more.js"></script>
+    <script type="text/javascript" src="/lib/kicku/src/swp.js"></script>
 
   </head>
   <body class="yui3-skin-sam">
@@ -50,20 +49,6 @@
     <div id="vk">
       <div id="input-suggest"></div>
       <div id="virtual-keyboard">
-        <ul>
-          <li><button class="vk-key" id="vk-key-1" type="button">1</button></li>
-          <li><button class="vk-key" id="vk-key-2" type="button">2</button></li>
-          <li><button class="vk-key" id="vk-key-3" type="button">3</button></li>
-          <li><button class="vk-key" id="vk-key-4" type="button">4</button></li>
-          <li><button class="vk-key" id="vk-key-5" type="button">5</button></li>
-          <li><button class="vk-key" id="vk-key-6" type="button">6</button></li>
-          <li><button class="vk-key" id="vk-key-7" type="button">7</button></li>
-          <li><button class="vk-key" id="vk-key-8" type="button">8</button></li>
-          <li><button class="vk-key" id="vk-key-9" type="button">9</button></li>
-          <li><button class="vk-key" id="vk-key-del" type="button" value="del">删除</button></li>
-          <li><button class="vk-key" id="vk-key-0" type="button">0</button></li>
-          <li><button class="vk-key" id="vk-key-ok" type="button" value="ok">确定</button></li>
-        </ul>
       </div>
     </div>
 
@@ -71,7 +56,6 @@
       window.addEvent('domready', function() {
       SWP.Touch.simpleVK('virtual-keyboard');
       SWP.Touch.active();
-      // var dict = ns.dict = new ns.Widget.Dict('input-suggest');
       });
     </script>
     <script type="text/javascript" src="touch.js"></script>

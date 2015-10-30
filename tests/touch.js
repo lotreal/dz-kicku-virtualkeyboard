@@ -1,4 +1,5 @@
 YUI({
+    skin: 'sam',
     logExclude: {
         attribute: true, 
         dom: true, 
@@ -20,14 +21,20 @@ YUI({
 
     var ns = SWP;
 
+    var body = $(document.body);
+    (new Element('input', {type:'text', id:'input-0'})).inject(body);
+    (new Element('textarea', {id:'textarea-0', value:'hi'})).inject(body);
+    (new Element('input', {type:'checkbox', id:'checkbox-0'})).inject(body);
+    (new Element('input', {type:'text', id:'input-1'})).inject(body);
+
     var tc_element = new Y.Test.Case({
         name: 'element',
 
         test_1: function() {
-            var isinp = ns.Element.isInputElement;
+            var isinp = ns.Element.isTextbox;
             Y.Assert.areEqual(true, isinp($('input-0')), 'input-0 is input element');
             Y.Assert.areEqual(true, isinp($('textarea-0')), 'textarea-0 is input element');
-            Y.Assert.areEqual(false, isinp($('select-0')), 'select-0 is not input element');
+            Y.Assert.areEqual(false, isinp($('checkbox-0')), 'select-0 is not input element');
         }
     });
 
@@ -42,20 +49,27 @@ YUI({
         },
 
         test_3: function() {
-            (new Element('input', {type:'text', id:'input-0'})).inject($(document.body));
-            (new Element('input', {type:'text', id:'input-1'})).inject($(document.body));
-            // Y.Assert.areEqual(true, $('input-0').hasClass('active-element'), 'input-0 actived');
+            var E = ns.Element, T = ns.Touch;
 
-	    // Y.Event.simulate(document.getElementById('vk-key-del'), 'click');
-	    // Y.Event.simulate(document.getElementById('vk-key-del'), 'click');
-	    // Y.Event.simulate(document.getElementById('vk-key-del'), 'click');
+            ns.Element.focusFirstTextbox();
+            Y.Assert.areEqual(true, $('input-0').hasClass(T.activeFlag), 'input-0 actived');
 
-            // Y.Assert.areEqual('hi', $('input-0').value, 'sc1 dispatched');
+	    Y.Event.simulate(document.getElementById('vk-key-enter'), 'click');
 
-	    // Y.Event.simulate(document.getElementById('vk-key-1'), 'click');
+            Y.Assert.areEqual(true, $('textarea-0').hasClass(T.activeFlag), 'textarea-0 actived');
 
-            // Y.Assert.areEqual('hi1', $('input-0').value, 'sc1 dispatched');
-	    // Y.Event.simulate(document.getElementById('vk-key-ok'), 'click');
+	    Y.Event.simulate(document.getElementById('vk-key-1'), 'click');
+            Y.Assert.areEqual('1', $('textarea-0').value, 'textarea:input 1');
+
+	    Y.Event.simulate(document.getElementById('vk-key-del'), 'click');
+            Y.Assert.areEqual('', $('textarea-0').value, 'textarea:input del');
+
+	    Y.Event.simulate(document.getElementById('vk-key-del'), 'click');
+	    Y.Event.simulate(document.getElementById('vk-key-del'), 'click');
+	    Y.Event.simulate(document.getElementById('vk-key-1'), 'click');
+	    Y.Event.simulate(document.getElementById('vk-key-2'), 'click');
+	    Y.Event.simulate(document.getElementById('vk-key-3'), 'click');
+            Y.Assert.areEqual('123', $('textarea-0').value, 'textarea:input del');
         }
     });
     
